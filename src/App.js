@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './scss/main.scss';
 import Form from './components/Form';
 import Header from './components/Header';

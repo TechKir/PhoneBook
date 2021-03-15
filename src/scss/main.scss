@@ -1,3 +1,5 @@
+@import './settings/colors';
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,26 +10,29 @@
 }
 
 body {
-    background-color: #F0F0F0;
+    background-color: $generalBackground;
+}
+
+@mixin flexNcenterVertical {
+    display: flex;
+    align-items: center;
 }
 
 .header {
-    display: flex;
+    @include flexNcenterVertical;
     justify-content: center;
-    align-items: center;
     height: 2em;
-    color:white;
+    color:$altFont;
     font-size: 1.5em;
     font-weight: 100;
-    background: rgb(33,184,214);
+    background: $headerColor;
     background: linear-gradient(155deg, rgba(33,184,214,1) 0%, rgba(21,138,108,1) 100%);
 }
 
 .form {
-    display: flex;
-    align-items: center;
+    @include flexNcenterVertical;
     height: 2em;
-    background-color: white;
+    background-color: $formColor;
     &__searchIconBox {
         display: flex;
         justify-content: center;
@@ -40,26 +45,27 @@ body {
 
 .contactsList { 
     &__div{
-        display: flex;
+        @include flexNcenterVertical;
         justify-content: center;
-        align-items: center;
     }
     &__li{
         height: 4em;
-        display: flex;
-        align-items: center;
+        @include flexNcenterVertical;
         justify-content: space-between;
-        border-bottom: #C0C0C0 1px solid;
+        border-bottom: $borders 1px solid;
     }
     &__img{
-        border: 1.5px #C0C0C0 solid;
-        color: #C0C0C0;
+        @include flexNcenterVertical;
+        justify-content: center;
+        border: 1.5px $borders solid;
+        color: $borders;
         border-radius: 50%;
         height: 2.5em;
         width: 2.5em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         margin:0 0.5em 0 0.3em;
     }
+}
+
+.hide {
+    display: none;
 }

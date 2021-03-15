@@ -1,19 +1,20 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-console */
-/* eslint-disable no-debugger */
-/* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Checkbox from '@material-ui/core/Checkbox';
+import { AuthContext } from '../App';
 import toggleArrayItem from '../utils/toggleArrayItem';
 
-function renderContacts(contacts) {
-  const [checkedContacts, setCheckedContacts] = useState([]);
-  console.log('Checked contacts IDs is:', checkedContacts);
+function RenderedContacts({ contacts }) {
+  const {
+    checkedContacts, setCheckedContacts, idToDisplay
+  } = useContext(AuthContext);
+  console.log(checkedContacts); // DO NOT DELETE - TASK REQUIREMENT
 
   return contacts.map((contact) => {
     const [checkbox, setCheckbox] = useState({
@@ -39,7 +40,7 @@ function renderContacts(contacts) {
     const avatar = contact.avatar || contact.first_name[0] + contact.last_name[0];
 
     return (
-      <li key={contact.id} className="contactsList__li">
+      <li key={contact.id} className="contactsList__li" style={{ display: `${idToDisplay.find(((element) => element === contact.id)) ? 'flex' : 'none'}` }}>
 
         <div className="contactsList__div">
           {avatar === contact.avatar ? <img className="contactsList__img" src={avatar} alt="avatar" /> : <div className="contactsList__img">{avatar}</div> }
@@ -52,7 +53,7 @@ function renderContacts(contacts) {
 
         <div>
           <FormControlLabel
-            control={<GreenCheckbox id={contact.id.toString()} checked={checkbox.checked} onChange={handleChange} name="checked" />}
+            control={<GreenCheckbox id={contact.id.toString()} checked={checkedContacts.find((e) => parseInt(e, 10) === contact.id) && true} onChange={handleChange} name="checked" />}
           />
         </div>
 
@@ -61,4 +62,4 @@ function renderContacts(contacts) {
   });
 }
 
-export default renderContacts;
+export default RenderedContacts;
